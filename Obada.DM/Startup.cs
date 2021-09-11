@@ -35,7 +35,7 @@ namespace Obada.DM
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IProfessorService, ProfessorService>();
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "Client/build"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +67,7 @@ namespace Obada.DM
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "Client";
 
                 if (env.IsDevelopment())
                 {
