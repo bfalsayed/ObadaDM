@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import {Link, useLocation} from "react-router-dom";
 import colors from "../theme/colors";
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -33,6 +34,12 @@ const links = [
         title: "Dashboard",
         exact: true,
         icon: () => <HomeIcon width={35} style={{width: "auto", height: "auto", color: colors.palette.primary}} />
+    },
+    {
+        url: "/statistics",
+        title: "Statistics",
+        exact: true,
+        icon: () => <EqualizerIcon width={35} style={{width: "auto", height: "auto", color: colors.palette.primary}} />
     },
 ]
 

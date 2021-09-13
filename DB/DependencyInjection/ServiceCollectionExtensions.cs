@@ -1,5 +1,4 @@
 using System;
-using DB.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,8 +15,6 @@ namespace DB.DependencyInjection
             services.AddDbContext<DmContext>(options => 
                 options.UseMySql(opts.ConnectionString, ServerVersion.AutoDetect(opts.ConnectionString)));
             
-            //add repositories
-            services.AddScoped<IDataRepository, DataRepository>();
         }
     }
 }

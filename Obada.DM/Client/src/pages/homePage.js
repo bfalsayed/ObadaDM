@@ -1,8 +1,8 @@
 import React, {FC, useEffect, useState} from "react";
 import axios from 'axios';
-import Select from "../../components/Select/Select";
-import BasicTable from "../../components/Table/Table";
-import SimpleCard from "../../components/Card/Card";
+import Select from "../components/Select/Select";
+import BasicTable from "../components/Table/Table";
+import SimpleCard from "../components/Card/Card";
 import {Link} from "react-router-dom";
 
 const HomePage = ({pathname}) => {

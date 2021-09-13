@@ -32,8 +32,7 @@ namespace Obada.DM
             });
             
             // add service
-            services.AddScoped<IDepartmentService, DepartmentService>();
-            services.AddScoped<IProfessorService, ProfessorService>();
+            services.AddScoped<IDataService, DataService>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "Client/build"; });
         }
