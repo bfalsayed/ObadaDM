@@ -11,23 +11,16 @@ namespace DB.Models
         [Column("publication_id")]
         public int Id { get; set; }
         
-        [Column("professor_id")]
-        public int ProfessorId { get; set; }
-        public Professor Professor { get; set; }
-        
         [Column("publication_title")]
         public string PublicationTitle { get; set; }
         
         [Column("publication_abstract")]
         public string PublicationAbstract { get; set; }
         
-        [Column("publication_date")]
-        public DateTime PublicationDate { get; set; }
-        
-        [Column("journal")]
+        [Column("journal_name")]
         public string Journal { get; set; }
         
-        [Column("conference")]
+        [Column("conference_name")]
         public string Conference { get; set; }
     }
 }

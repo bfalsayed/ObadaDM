@@ -38,12 +38,12 @@ namespace Obada.DM.Controllers
             var professor = (await _dataService.GetProfessorsAsync(professorIds))?.FirstOrDefault();
             var students = await _dataService.GetProfessorsStudentsAsync(professorIds);
             var publications = await _dataService.GetProfessorsPublicationsAsync(professorIds);
-            var publicationsTimeSeries = _dataService.GeneratePublicationsTimeSeries(publications);
+            //var publicationsTimeSeries = _dataService.GeneratePublicationsTimeSeries(publications);
             return new ProfessorData()
             {
                 Professor = professor,
                 Students = students,
-                PublicationsTimeSeries = publicationsTimeSeries
+                PublicationsTimeSeries = new Dictionary<string, List<Publication>>()
             };
         }
         
@@ -69,8 +69,42 @@ namespace Obada.DM.Controllers
                     Projects = depProjects
                 });
             }
-
+        
             return departmentData;
+        }
+        
+        [HttpGet("/Departments/Professors")]
+        public async Task<List<Professor>> GetDepartmentsProfessors()
+        {
+            var profs = await _dataService.GetProfessorsAsync(new List<int>() {});
+            return profs;
+        }
+        
+        [HttpGet("/DepartmentsPublications")]
+        public async Task<Dictionary<int, List<Publication>>> GetDepartmentsPublications()
+        {
+            return await _dataService.GetDepartmentsPublicationsAsync();
+        }
+        
+        
+        //statistics
+        [HttpGet("/ProfessorsByGender")]
+        public async Task<Dictionary<string, List<Professor>>> GetProfessorsByGender()
+        {
+            return await _dataService.GetProfessorsByGenderAsync();
+        }
+        
+        [HttpGet("/ProjectsByResearchArea")]
+        public async Task<Dictionary<string, List<Project>>> GetProjectsByResearchArea()
+        {
+            return await _dataService.GetProjectsByResearchAreaAsync();
+        }
+        
+        //calender
+        [HttpGet("/ProfessorsCalender")]
+        public async Task<Dictionary<string, List<Calendar>>> GetProfessorsCalender()
+        {
+            return await _dataService.GetProfessorCalendersAsync();
         }
     }
 }

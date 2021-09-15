@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import {Link, useLocation} from "react-router-dom";
 import colors from "../theme/colors";
 import EqualizerIcon from '@material-ui/icons/Equalizer';
-
+import TodayIcon from '@material-ui/icons/Today';
 const useStyles = makeStyles((theme) => ({
     link: {
         display: 'flex',
@@ -40,6 +40,12 @@ const links = [
         title: "Statistics",
         exact: true,
         icon: () => <EqualizerIcon width={35} style={{width: "auto", height: "auto", color: colors.palette.primary}} />
+    },
+    {
+        url: "/Calender",
+        title: "Calender",
+        exact: true,
+        icon: () => <TodayIcon width={35} style={{width: "auto", height: "auto", color: colors.palette.primary}} />
     },
 ]
 

@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DB.Models
 {
-    [Table("research_projects_dim")]
-    public class Project
+    [Table("research_interest_dim")]
+    public class ResearchArea
     {
         [Key]
-        [Column("research_project_id")]
+        [Column("research_area_id")]
         public int Id { get; set; }
-        
-        [Column("research_project_title")]
+
+        [Column("research_area_title")]
         public string Title { get; set; }
         
-        [Column("research_project_description")]
+        [Column("research_area_description")]
         public string Description { get; set; }
     }
 }

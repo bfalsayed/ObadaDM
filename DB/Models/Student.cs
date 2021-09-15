@@ -16,10 +16,7 @@ namespace DB.Models
         
         [Column("student_email")]
         public string StudentEmail { get; set; }
-        
-        [Column("professor_id")]
-        public int ProfessorId { get; set; }
-        
+
         [Column("research_project_title")]
         public string ResearchProjectTitle { get; set; }
         

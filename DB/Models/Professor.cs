@@ -26,10 +26,6 @@ namespace DB.Models
         [Column("date_of_birth")]
         public DateTime DateOfBirth { get; set; }
         
-        [Column("department_id")]
-        public int DepartmentId { get; set; }
-        public Department Department { get; set; }
-        
         [Column("contact_email")]
         public string ContactEmail { get; set; }
         

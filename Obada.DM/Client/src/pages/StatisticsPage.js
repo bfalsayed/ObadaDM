@@ -8,6 +8,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import colors from "../theme/colors";
 import SimpleChart from "../components/Chart/PublicationsTimeSeriesBarChart";
 import DepartmentsBarChart from "../components/Chart/DepartmentsBarChart";
+import ProfessorsByGender from "../components/Chart/ProfessorsByGender";
+import ProjectsByArea from "../components/Chart/ProjectsByArea";
+import Calender from "../components/Calender";
 
 const useStyles = makeStyles({
     infoItem: {
@@ -26,6 +29,8 @@ const useStyles = makeStyles({
 
 const StatisticsPage = ({pathname}) => {
     const [departmentStats, setDepartmentStats] = useState([]);
+    const [professorsByGender, setProfessorsByGender] = useState([]);
+    const [researchByArea, setResearchByArea] = useState([]);
 
     useEffect(() => {
         getDepartmentsStats()
@@ -42,12 +47,41 @@ const StatisticsPage = ({pathname}) => {
                 }
             )))
         })
+
+        axios.get(`/ProfessorsByGender`).then(res => {
+            setProfessorsByGender(Object.entries(res.data).map(entry => (
+                {
+                    name: entry[0],
+                    value: entry[1].length,
+                }
+            )))
+        })
+
+        axios.get(`/ProjectsByResearchArea`).then(res => {
+            setResearchByArea(Object.entries(res.data).map(entry => (
+                {
+                    researchArea: entry[0],
+                    projects: entry[1].length,
+                }
+            )))
+        })
     }
+
     return (
         <div>
             <SimpleCard title={"Departments Statistics"} >
                 <div style={{width: "100%", height: 500}}>
                     {departmentStats && <DepartmentsBarChart data={departmentStats}/>}
+                </div>
+            </SimpleCard>
+            <SimpleCard title={"Professors By Gender"} >
+                <div style={{width: "100%%", height: 500}}>
+                    {professorsByGender && <ProfessorsByGender data={professorsByGender}/>}
+                </div>
+            </SimpleCard>
+            <SimpleCard title={"Projects By Research Area"} >
+                <div style={{width: "100%%", height: 500}}>
+                    {researchByArea && <ProjectsByArea data={researchByArea}/>}
                 </div>
             </SimpleCard>
         </div>
