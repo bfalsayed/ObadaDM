@@ -28,7 +28,7 @@ namespace Obada.DM.Controllers
         [HttpGet("/Professors")]
         public async Task<IList<Professor>> GetProfessors([FromQuery] List<int> departmentId)
         {
-            return await _dataService.GetProfessorsAsync(departmentId);
+            return await _dataService.GetDepartmentProfessorsAsync(departmentId);
         }
         
         [HttpGet("/Professors/{professorId}")]
@@ -76,7 +76,7 @@ namespace Obada.DM.Controllers
         [HttpGet("/Departments/Professors")]
         public async Task<List<Professor>> GetDepartmentsProfessors()
         {
-            var profs = await _dataService.GetProfessorsAsync(new List<int>() {});
+            var profs = await _dataService.GetDepartmentProfessorsAsync(new List<int>() {});
             return profs;
         }
         

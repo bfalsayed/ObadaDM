@@ -22,7 +22,7 @@ namespace Obada.DM.Services
             return await _context.Departments.ToListAsync();
         }
         
-        public async Task<List<Professor>> GetProfessorsAsync(IList<int> departmentIds)
+        public async Task<List<Professor>> GetDepartmentProfessorsAsync(IList<int> departmentIds)
         {
             var professorIds = (await GetDepartmentsRecordsAsync(departmentIds))
                 .Select(f => f.ProfessorId).ToHashSet();
@@ -30,7 +30,19 @@ namespace Obada.DM.Services
             var professors = await _context.Professors.Where(p => professorIds.Contains(p.Id)).ToListAsync();
             return professors;
         }
-        
+
+        public async Task<List<Professor>> GetProfessorsAsync(IList<int> professorIds)
+        {
+            var query = _context.Professors;
+
+            if (professorIds != null && professorIds.Any())
+            {
+                return await query.Where(prof => professorIds.Contains((int)prof.Id)).ToListAsync();
+            }
+
+            return await query.ToListAsync();
+        }
+
         public async Task<List<Student>> GetProfessorsStudentsAsync(IList<int> professorIds)
         {
             var studentIds = (await GetProfessorRecordsAsync(professorIds))

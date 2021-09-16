@@ -8,7 +8,8 @@ namespace Obada.DM.Services
     {
         Task<List<Department>> GetDepartmentsAsync();
         
-        Task<List<Professor>> GetProfessorsAsync(IList<int> departmentIds);
+        Task<List<Professor>> GetDepartmentProfessorsAsync(IList<int> departmentIds);
+        Task<List<Professor>> GetProfessorsAsync(IList<int> professorIds);
         Task<List<Student>> GetProfessorsStudentsAsync(IList<int> professorIds);
         Task<List<Publication>> GetProfessorsPublicationsAsync(IList<int> professorIds);
         //Dictionary<string, List<Publication>> GeneratePublicationsTimeSeries(List<Publication> publications);
