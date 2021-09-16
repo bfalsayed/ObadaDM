@@ -37,7 +37,7 @@ const CalenderPage = ({pathname}) => {
             const items = [];
             entries.forEach(entry => {
                 entry[1].forEach(item => {
-                    items.push({id: item.itemId, group: groups.find(t => t.title === entry[0]).id, title: item.title, start_time: moment(item.startDate).add(5, 'years'), end_time: moment(item.endDate).add(7, 'years')})
+                    items.push({id: item.itemId, group: groups.find(t => t.title === entry[0]).id, title: item.title, start_time: moment(item.startDate), end_time: moment(item.endDate)})
                 })
             })
             setCalender({groups, items})

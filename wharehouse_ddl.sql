@@ -11,19 +11,19 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema data_warehouse
+-- Schema database_warehouse
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema data_warehouse
+-- Schema database_warehouse
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `data_warehouse` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `data_warehouse` ;
+CREATE SCHEMA IF NOT EXISTS `database_warehouse` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `database_warehouse` ;
 
 -- -----------------------------------------------------
--- Table `data_warehouse`.`calender_dim`
+-- Table `database_warehouse`.`calender_dim`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `data_warehouse`.`calender_dim` (
+CREATE TABLE IF NOT EXISTS `database_warehouse`.`calender_dim` (
   `item_id` INT NOT NULL,
   `title` VARCHAR(100) NULL DEFAULT NULL,
   `description` VARCHAR(100) NULL DEFAULT NULL,
@@ -42,9 +42,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `data_warehouse`.`department_dim`
+-- Table `database_warehouse`.`department_dim`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `data_warehouse`.`department_dim` (
+CREATE TABLE IF NOT EXISTS `database_warehouse`.`department_dim` (
   `department_id` INT NOT NULL,
   `department_name` VARCHAR(100) NULL DEFAULT NULL,
   PRIMARY KEY (`department_id`))
@@ -54,9 +54,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `data_warehouse`.`professor_dim`
+-- Table `database_warehouse`.`professors_dim`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `data_warehouse`.`professor_dim` (
+CREATE TABLE IF NOT EXISTS `database_warehouse`.`professors_dim` (
   `professor_id` INT NOT NULL,
   `job_title` VARCHAR(100) NULL DEFAULT NULL,
   `first_name` VARCHAR(45) NULL DEFAULT NULL,
@@ -74,9 +74,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `data_warehouse`.`publication_dim`
+-- Table `database_warehouse`.`publications_dim`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `data_warehouse`.`publication_dim` (
+CREATE TABLE IF NOT EXISTS `database_warehouse`.`publications_dim` (
   `publication_id` INT NOT NULL,
   `publication_title` VARCHAR(150) NULL DEFAULT NULL,
   `publication_abstract` VARCHAR(6000) NULL DEFAULT NULL,
@@ -89,9 +89,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `data_warehouse`.`research_interest_dim`
+-- Table `database_warehouse`.`research_interest_dim`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `data_warehouse`.`research_interest_dim` (
+CREATE TABLE IF NOT EXISTS `database_warehouse`.`research_interest_dim` (
   `research_area_id` INT NOT NULL,
   `research_area_title` VARCHAR(250) NULL DEFAULT NULL,
   `research_area_description` TEXT NULL DEFAULT NULL,
@@ -102,9 +102,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `data_warehouse`.`research_project_dim`
+-- Table `database_warehouse`.`research_projects_dim`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `data_warehouse`.`research_project_dim` (
+CREATE TABLE IF NOT EXISTS `database_warehouse`.`research_projects_dim` (
   `research_project_id` INT NOT NULL,
   `research_project_title` VARCHAR(250) NULL DEFAULT NULL,
   `research_project_description` TEXT NULL DEFAULT NULL,
@@ -115,9 +115,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `data_warehouse`.`research_student_dim`
+-- Table `database_warehouse`.`research_students_dim`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `data_warehouse`.`research_student_dim` (
+CREATE TABLE IF NOT EXISTS `database_warehouse`.`research_students_dim` (
   `student_id` INT NOT NULL,
   `student_name` VARCHAR(45) NULL DEFAULT NULL,
   `student_email` VARCHAR(100) NULL DEFAULT NULL,
@@ -130,9 +130,10 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `data_warehouse`.`table_research_fact`
+-- Table `database_warehouse`.`table_research_fact`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `data_warehouse`.`table_research_fact` (
+CREATE TABLE IF NOT EXISTS `database_warehouse`.`table_research_fact` (
+`id` int auto_increment not null primary key,
   `research_area_id` INT NULL DEFAULT NULL,
   `research_project_id` INT NULL DEFAULT NULL,
   `student_id` INT NULL DEFAULT NULL,
@@ -149,25 +150,25 @@ CREATE TABLE IF NOT EXISTS `data_warehouse`.`table_research_fact` (
   INDEX `fk_fact_academic_table_dim_calender1_idx` (`item_id` ASC) VISIBLE,
   CONSTRAINT `fk_fact_academic_table_dim_calender1`
     FOREIGN KEY (`item_id`)
-    REFERENCES `data_warehouse`.`calender_dim` (`item_id`),
+    REFERENCES `database_warehouse`.`calender_dim` (`item_id`),
   CONSTRAINT `fk_fact_academic_table_dim_department1`
     FOREIGN KEY (`department_id`)
-    REFERENCES `data_warehouse`.`department_dim` (`department_id`),
+    REFERENCES `database_warehouse`.`department_dim` (`department_id`),
   CONSTRAINT `fk_fact_academic_table_dim_professor1`
     FOREIGN KEY (`professor_id`)
-    REFERENCES `data_warehouse`.`professor_dim` (`professor_id`),
+    REFERENCES `database_warehouse`.`professors_dim` (`professor_id`),
   CONSTRAINT `fk_fact_academic_table_dim_publication1`
     FOREIGN KEY (`publication_id`)
-    REFERENCES `data_warehouse`.`publication_dim` (`publication_id`),
+    REFERENCES `database_warehouse`.`publications_dim` (`publication_id`),
   CONSTRAINT `fk_fact_academic_table_dim_research_interest`
     FOREIGN KEY (`research_area_id`)
-    REFERENCES `data_warehouse`.`research_interest_dim` (`research_area_id`),
+    REFERENCES `database_warehouse`.`research_interest_dim` (`research_area_id`),
   CONSTRAINT `fk_fact_academic_table_dim_research_project1`
     FOREIGN KEY (`research_project_id`)
-    REFERENCES `data_warehouse`.`research_project_dim` (`research_project_id`),
+    REFERENCES `database_warehouse`.`research_projects_dim` (`research_project_id`),
   CONSTRAINT `fk_fact_academic_table_dim_research_student1`
     FOREIGN KEY (`student_id`)
-    REFERENCES `data_warehouse`.`research_student_dim` (`student_id`))
+    REFERENCES `database_warehouse`.`research_students_dim` (`student_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -153,6 +154,11 @@ namespace Obada.DM.Services
                 var professor = allProfessors.FirstOrDefault(t => t.Id == professorCalenderId.Key);
                 var calenderIds = professorCalenderId.Value.Select(t => t.ItemId).ToList();
                 var calenders = allCalenders.Where(c => calenderIds.Contains(c.ItemId)).ToList();
+                foreach (var calender in calenders)
+                {
+                    calender.StartDate = calender.StartDate + (TimeSpan)calender.From;
+                    calender.EndDate = calender.EndDate + (TimeSpan)calender.To;
+                }
                 result.Add(professor.FirstName + " " + professor.LastName, calenders);
             }
 
