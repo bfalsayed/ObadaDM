@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const links = [
     {
-        url: "/",
+        url: "/dashboard",
         title: "Dashboard",
         exact: true,
         icon: () => <HomeIcon width={35} style={{width: "auto", height: "auto", color: colors.palette.primary}} />
