@@ -5,19 +5,43 @@ import Layout from "./Layout/Layout";
 import ProfessorPage from "./pages/ProfessorPage";
 import StatisticsPage from "./pages/StatisticsPage";
 import CalenderPage from "./pages/CalenderPage";
+import WelcomePage from "./pages/WelcomePage";
 
 const App = () => {
     return (
         <BrowserRouter>
-            <Layout>
-                <Switch>
-                    <Route exact path={"/"} component={HomePage}/>
-                    <Route exact path={"/statistics"} component={StatisticsPage}/>
-                    <Route exact path={"/professor/:id"} component={ProfessorPage}/>
-                    <Route exact path={"/calender"} component={CalenderPage}/>
-                    <Route path={"*"} component={() => <div>Page Not Found</div>}/>
-                </Switch>
-            </Layout>
+            <Switch>
+                <Route exact path={"/"} component={(props) => <WelcomePage {...props} /> } />
+                <Route exact path={"/dashboard"} render={(props) => {
+                    return (
+                        <Layout>
+                            <HomePage {...props}/>
+                        </Layout>
+                    )
+                }}/>
+                <Route exact path={"/statistics"} render={(props) => {
+                    return (
+                        <Layout>
+                            <StatisticsPage {...props}/>
+                        </Layout>
+                    )
+                }}/>
+                <Route exact path={"/professor/:id"} render={(props) => {
+                    return (
+                        <Layout>
+                            <ProfessorPage {...props}/>
+                        </Layout>
+                    )
+                }}/>
+                <Route exact path={"/calender"} render={(props) => {
+                    return (
+                        <Layout>
+                            <CalenderPage {...props}/>
+                        </Layout>
+                    )
+                }}/>
+                <Route path={"*"} component={() => <div>Page Not Found</div>}/>
+            </Switch>
         </BrowserRouter>
     );
 };
