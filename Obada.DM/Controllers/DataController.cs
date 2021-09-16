@@ -100,6 +100,12 @@ namespace Obada.DM.Controllers
             return await _dataService.GetProjectsByResearchAreaAsync();
         }
         
+        [HttpGet("/PublicationsByProfessors")]
+        public async Task<Dictionary<string, List<Publication>>> GetPublicationsByProfessors()
+        {
+            return await _dataService.GetPublicationsByProfessorAsync();
+        }
+        
         //calender
         [HttpGet("/ProfessorsCalender")]
         public async Task<Dictionary<string, List<Calendar>>> GetProfessorsCalender()

@@ -11,6 +11,9 @@ import DepartmentsBarChart from "../components/Chart/DepartmentsBarChart";
 import ProfessorsByGender from "../components/Chart/ProfessorsByGender";
 import ProjectsByArea from "../components/Chart/ProjectsByArea";
 import Calender from "../components/Calender";
+import PublicationsByProfessors from "../components/Chart/PublicationsByProfessors";
+import DepartmentsMetricsDynamicChart from "../components/DepartmentsMetricsDynamicChart";
+import DynamicChart from "../components/DynamicChart";
 
 const useStyles = makeStyles({
     infoItem: {
@@ -30,7 +33,8 @@ const useStyles = makeStyles({
 const StatisticsPage = ({pathname}) => {
     const [departmentStats, setDepartmentStats] = useState([]);
     const [professorsByGender, setProfessorsByGender] = useState([]);
-    const [researchByArea, setResearchByArea] = useState([]);
+    const [projectsByArea, setResearchByArea] = useState([]);
+    const [publicationsByProfessors, setPublicationsByProfessor] = useState([]);
 
     useEffect(() => {
         getDepartmentsStats()
@@ -65,13 +69,24 @@ const StatisticsPage = ({pathname}) => {
                 }
             )))
         })
+
+        axios.get(`/PublicationsByProfessors`).then(res => {
+            setPublicationsByProfessor(Object.entries(res.data).map(entry => (
+                {
+                    professor: entry[0],
+                    publications: entry[1].length,
+                }
+            )))
+        })
+
+
     }
 
     return (
         <div>
             <SimpleCard title={"Departments Statistics"} >
                 <div style={{width: "100%", height: 500}}>
-                    {departmentStats && <DepartmentsBarChart data={departmentStats}/>}
+                    {departmentStats && <DepartmentsMetricsDynamicChart data={departmentStats}/>}
                 </div>
             </SimpleCard>
             <SimpleCard title={"Professors By Gender"} >
@@ -81,7 +96,22 @@ const StatisticsPage = ({pathname}) => {
             </SimpleCard>
             <SimpleCard title={"Projects By Research Area"} >
                 <div style={{width: "100%%", height: 500}}>
-                    {researchByArea && <ProjectsByArea data={researchByArea}/>}
+                    {projectsByArea && <ProjectsByArea data={projectsByArea}/>}
+                </div>
+            </SimpleCard>
+            <SimpleCard title={"Puplications By Professors"} >
+                <div style={{width: "100%%", height: 500}}>
+                    {publicationsByProfessors && <PublicationsByProfessors data={publicationsByProfessors}/>}
+                </div>
+            </SimpleCard>
+            <SimpleCard title={"Dynamic Chart"} >
+                <div style={{width: "100%%", height: 500}}>
+                    {publicationsByProfessors
+                        &&
+                    <DynamicChart data={{
+                        professorsByGender, projectsByArea: projectsByArea  ,     publicationsByProfessors
+                    }}/>
+                    }
                 </div>
             </SimpleCard>
         </div>

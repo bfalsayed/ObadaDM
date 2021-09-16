@@ -21,6 +21,7 @@ namespace Obada.DM.Services
         //statistics 
         Task<Dictionary<string, List<Professor>>> GetProfessorsByGenderAsync();
         Task<Dictionary<string, List<Project>>> GetProjectsByResearchAreaAsync();
+        Task<Dictionary<string, List<Publication>>> GetPublicationsByProfessorAsync();
         
         //calender
         Task<Dictionary<string, List<Calendar>>> GetProfessorCalendersAsync();

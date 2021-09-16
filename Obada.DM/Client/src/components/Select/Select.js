@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Select = ({items, onChange, label, defaultValue}) => {
+const Select = ({items, onChange, label, defaultValue, includeAll = true, includeNone = true}) => {
     const classes = useStyles();
 
     const [item, setItem] = React.useState(defaultValue);
@@ -36,12 +36,17 @@ const Select = ({items, onChange, label, defaultValue}) => {
                 onChange={handleChange}
                 defaultValue={defaultValue}
             >
-                <MenuItem value={"all"}>
-                    <em>All</em>
-                </MenuItem>
-                <MenuItem value={"none"}>
-                    <em>None</em>
-                </MenuItem>
+                {
+                    includeAll && <MenuItem value={"all"}>
+                        <em>All</em>
+                    </MenuItem>
+                }
+                {
+                    includeNone &&
+                    <MenuItem value={"none"}>
+                        <em>None</em>
+                    </MenuItem>
+                }
                 {
                     items.map(({title, value}) =>
                          <MenuItem value={value}>{title}</MenuItem>

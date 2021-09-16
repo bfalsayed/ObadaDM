@@ -41,7 +41,7 @@ const ProfessorPage = ({pathname}) => {
 
     const getProfessorData = ({professorId}) => {
         axios.get(`/Professors/${professorId}`).then(res => {
-            setStudents(res.data.students.map(item => ({...item, details: "details"})))
+            setStudents(res.data.students)
             setProfessor(res.data.professor)
             setPublicationsTimeSeries(Object.entries(res.data.publicationsTimeSeries).map(entry => (
                 {
@@ -71,12 +71,7 @@ const ProfessorPage = ({pathname}) => {
                         {key: "studentName", title: "Name"},
                         {key: "studentEmail", title: "Email"},
                         {key: "researchProjectTitle", title: "Research Project Title"},
-                        {key: "researchProjectDescription", title: "Research Project Description"},
-                        {key: "details", title: "", Component: (props) => <div>
-                                <Link to={`/professor/${props.id}`}>
-                                    Details
-                                </Link>
-                            </div>},
+                        {key: "researchProjectDescription", title: "Research Project Description"}
                     ]}
                     rows={students}
                 >
@@ -84,12 +79,12 @@ const ProfessorPage = ({pathname}) => {
                 </BasicTable>
             </SimpleCard>
 
-            <SimpleCard title={"Publications"} >
-                <div style={{width: "100%", height: 500}}>
+            {/*<SimpleCard title={"Publications"} >*/}
+            {/*    <div style={{width: "100%", height: 500}}>*/}
 
-                    {publicationsTimeSeries && <SimpleChart data={publicationsTimeSeries}/>}
-                </div>
-            </SimpleCard>
+            {/*        {publicationsTimeSeries && <SimpleChart data={publicationsTimeSeries}/>}*/}
+            {/*    </div>*/}
+            {/*</SimpleCard>*/}
         </div>
     );
 };

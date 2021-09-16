@@ -149,6 +149,27 @@ namespace Obada.DM.Services
             return result;
         }
 
+        public async Task<Dictionary<string, List<Publication>>> GetPublicationsByProfessorAsync()
+        {
+            var professorsGroup = (await GetProfessorRecordsAsync(new List<int>()))
+                .GroupBy(f => f.ProfessorId);
+
+            var allProfessors = await _context.Professors.ToListAsync();
+            var allPublications = await _context.Publications.ToListAsync();
+            
+            var result = new Dictionary<string, List<Publication>>();
+            foreach (var group in professorsGroup)
+            {
+                var prof = allProfessors.FirstOrDefault(p => p.Id == group.Key);
+                var publicationIds = group.Select(d => d.PublicationId).ToHashSet();
+                var publications = allPublications
+                    .Where(publication => publicationIds.Contains(publication.Id)).ToList();
+                result.Add(prof.FirstName + " " + prof.LastName, publications);
+            }
+
+            return result;
+        }
+
         public async Task<Dictionary<string, List<Calendar>>> GetProfessorCalendersAsync()
         {
             var professorCalenderIds = (await GetProfessorRecordsAsync(new List<int>()))
